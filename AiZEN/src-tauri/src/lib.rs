@@ -94,8 +94,8 @@ async fn set_complete(
             .eval("document.querySelector('.splash-container').classList.add('fade-out')")
             .unwrap();
         
-        // Wait for the animation to complete
-        sleep(Duration::from_millis(800)).await;
+        // Increased wait time for the new animation
+        sleep(Duration::from_millis(1200)).await;
         
         // Close splash and show main window
         splash_window.close().unwrap();
