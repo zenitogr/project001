@@ -5,6 +5,13 @@
     --background-color: #0A0A0A;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -13,7 +20,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: fixed;
 }
 
 .splash-container {
@@ -179,23 +189,24 @@ body {
 
 .fade-out::after {
     content: '';
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background: radial-gradient(
         circle at center,
         var(--primary-color) 0%,
         transparent 70%
     );
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 10 L50 90 M50 40 L30 60 M50 40 L70 60 M50 60 L30 80 M50 60 L70 80 M50 20 L20 40 M50 20 L80 40' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E");
-    mask-size: 0;
+    mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;
     transform: translate(-50%, -50%);
     opacity: 0;
     pointer-events: none;
+    z-index: 1000;
 }
 
 .fade-out::after {
@@ -205,17 +216,17 @@ body {
 @keyframes contentFade {
     0% {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1) translateZ(0);
         filter: brightness(1);
     }
     40% {
         opacity: 0.7;
-        transform: scale(1.1);
+        transform: scale(0.9) translateZ(0);
         filter: brightness(1.2);
     }
     100% {
         opacity: 0;
-        transform: scale(1.5);
+        transform: scale(0.7) translateZ(0);
         filter: brightness(1.5);
     }
 }
@@ -223,38 +234,35 @@ body {
 @keyframes zenTreeZoom {
     0% {
         opacity: 0;
-        mask-size: 100%;
-        transform: translate(-50%, -50%) scale(0.1);
-        filter: brightness(1);
+        mask-size: 20%;
+        transform: translate(-50%, -50%) scale(0.1) translateZ(0);
     }
     40% {
         opacity: 1;
-        mask-size: 80%;
-        transform: translate(-50%, -50%) scale(1);
-        filter: brightness(1.5);
+        mask-size: 40%;
+        transform: translate(-50%, -50%) scale(1) translateZ(0);
     }
     80% {
         opacity: 1;
-        mask-size: 60%;
-        transform: translate(-50%, -50%) scale(2);
-        filter: brightness(2);
+        mask-size: 80%;
+        transform: translate(-50%, -50%) scale(2) translateZ(0);
     }
     100% {
         opacity: 0;
-        mask-size: 40%;
-        transform: translate(-50%, -50%) scale(4);
-        filter: brightness(3);
+        mask-size: 120%;
+        transform: translate(-50%, -50%) scale(4) translateZ(0);
     }
 }
 
 /* Add zen tree overlay for fade-out */
 .fade-out::before {
     content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
     background: 
         radial-gradient(circle at 30% 40%, var(--secondary-color) 0%, transparent 2%),
         radial-gradient(circle at 70% 60%, var(--primary-color) 0%, transparent 2%),
@@ -262,20 +270,21 @@ body {
         radial-gradient(circle at 60% 30%, var(--primary-color) 0%, transparent 2%);
     animation: particleZoom 1.5s ease-out forwards;
     pointer-events: none;
+    z-index: 999;
 }
 
 @keyframes particleZoom {
     0% {
         opacity: 0;
-        transform: scale(1);
+        transform: translate(-50%, -50%) scale(1) translateZ(0);
     }
     50% {
         opacity: 0.8;
-        transform: scale(1.5);
+        transform: translate(-50%, -50%) scale(2) translateZ(0);
     }
     100% {
         opacity: 0;
-        transform: scale(3);
+        transform: translate(-50%, -50%) scale(4) translateZ(0);
     }
 }
 
