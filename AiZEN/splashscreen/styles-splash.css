@@ -46,6 +46,7 @@ body {
     position: relative;
     width: 80px;
     height: 80px;
+    transform-style: preserve-3d;
 }
 
 .spinner-inner {
@@ -62,7 +63,10 @@ body {
 .spinner-inner::before {
     content: '';
     position: absolute;
-    inset: -8px;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
     border-radius: 50%;
     border: 3px solid transparent;
     border-top-color: var(--secondary);
@@ -72,13 +76,17 @@ body {
 
 .spinner-rays {
     position: absolute;
-    inset: -20px;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
     border-radius: 50%;
     background: radial-gradient(circle at center,
         transparent 0%,
         rgba(0, 255, 242, 0.1) 40%,
         transparent 70%);
-    animation: pulse 2s ease-in-out infinite;
+    animation: pulse 2s ease-in-out infinite, spin 8s linear infinite;
+    pointer-events: none;
 }
 
 .loading-text {
@@ -92,8 +100,17 @@ body {
     animation: dots 1.5s infinite;
 }
 
+.dots::after {
+    content: '';
+    display: inline-block;
+    animation: dots 1.5s infinite;
+}
+
 @keyframes spin {
-    to {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
         transform: rotate(360deg);
     }
 }
