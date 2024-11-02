@@ -17,12 +17,18 @@ use std::sync::Mutex;
 use tauri::async_runtime::spawn;
 use tauri::{AppHandle, Manager, State};
 use tokio::time::{sleep, Duration};
+use std::process;
 
 // Create a struct we'll use to track the completion of
 // setup related tasks
 struct SetupState {
     frontend_task: bool,
     backend_task: bool,
+}
+
+#[tauri::command]
+fn kill_app() {
+    process::exit(0);
 }
 
 // Our main entrypoint in a version 2 mobile compatible app
@@ -38,7 +44,7 @@ pub fn run() {
             backend_task: false,
         }))
         // Add a command we can use to check
-        .invoke_handler(tauri::generate_handler![greet, set_complete])
+        .invoke_handler(tauri::generate_handler![greet, set_complete, kill_app])
         // Use the setup hook to execute setup related tasks
         // Runs before the main loop, so no windows are yet created
         .setup(|app| {

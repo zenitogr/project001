@@ -157,3 +157,24 @@ body {
         transform: translate(-50%, -50%) rotate(360deg);
     }
 }
+
+.kill-button {
+    margin-top: 1rem;
+    padding: 0.8em 1.6em;
+    border: 2px solid var(--primary);
+    background: transparent;
+    color: var(--primary);
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.kill-button:hover {
+    background: var(--primary);
+    color: var(--background);
+    box-shadow: 0 0 15px var(--primary);
+} 

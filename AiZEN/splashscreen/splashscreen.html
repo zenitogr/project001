@@ -18,6 +18,14 @@
         <div class="loading-text">
             Initializing<span class="dots">...</span>
         </div>
+        <button id="kill-button" class="kill-button">Kill AiZEN</button>
     </div>
+    <script type="module">
+        import { invoke } from '@tauri-apps/api/core';
+        
+        document.getElementById('kill-button').addEventListener('click', () => {
+            invoke('kill_app');
+        });
+    </script>
 </body>
 </html>
