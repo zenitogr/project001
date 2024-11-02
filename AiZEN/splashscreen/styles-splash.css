@@ -47,6 +47,34 @@ body {
     width: 80px;
     height: 80px;
     transform-style: preserve-3d;
+    filter: drop-shadow(0 0 15px rgba(0, 255, 242, 0.3));
+}
+
+.fluid-effect {
+    position: absolute;
+    inset: -15px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, 
+        rgba(0, 255, 242, 0.3),
+        rgba(255, 0, 255, 0.3));
+    filter: blur(10px);
+    animation: fluidMove 8s linear infinite,
+               breathe 4s ease-in-out infinite;
+    mix-blend-mode: screen;
+}
+
+.neon-glow {
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(0, 255, 242, 0.4) 0%,
+        rgba(255, 0, 255, 0.4) 50%,
+        transparent 70%
+    );
+    animation: glowRotate 6s linear infinite;
+    mix-blend-mode: screen;
 }
 
 .spinner-inner {
@@ -58,6 +86,7 @@ body {
     border-top-color: var(--primary);
     border-left-color: var(--secondary);
     animation: spin 1s linear infinite;
+    box-shadow: 0 0 20px rgba(0, 255, 242, 0.5);
 }
 
 .spinner-inner::before {
@@ -82,10 +111,12 @@ body {
     bottom: -20px;
     border-radius: 50%;
     background: radial-gradient(circle at center,
-        transparent 0%,
-        rgba(0, 255, 242, 0.1) 40%,
+        rgba(0, 255, 242, 0.2) 0%,
+        rgba(255, 0, 255, 0.2) 40%,
         transparent 70%);
-    animation: pulse 2s ease-in-out infinite, spin 8s linear infinite;
+    animation: pulse 2s ease-in-out infinite,
+               spin 8s linear infinite;
+    mix-blend-mode: screen;
     pointer-events: none;
 }
 
@@ -118,11 +149,11 @@ body {
 @keyframes pulse {
     0%, 100% {
         transform: scale(1);
-        opacity: 0.5;
+        filter: brightness(1) blur(5px);
     }
     50% {
         transform: scale(1.2);
-        opacity: 0.8;
+        filter: brightness(1.5) blur(8px);
     }
 }
 
@@ -225,4 +256,37 @@ body {
     animation: fadeOut 0.8s ease-out forwards,
                glowPulse 0.8s ease-in-out;
     pointer-events: none;
-} 
+}
+
+@keyframes fluidMove {
+    0%, 100% {
+        clip-path: circle(40% at 50% 50%);
+    }
+    25% {
+        clip-path: circle(40% at 40% 60%);
+    }
+    50% {
+        clip-path: circle(40% at 60% 40%);
+    }
+    75% {
+        clip-path: circle(40% at 50% 30%);
+    }
+}
+
+@keyframes breathe {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.1) rotate(180deg);
+    }
+}
+
+@keyframes glowRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
