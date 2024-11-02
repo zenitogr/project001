@@ -89,15 +89,22 @@ async fn set_complete(
         let splash_window = app.get_webview_window("splashscreen").unwrap();
         let main_window = app.get_webview_window("main").unwrap();
         
-        // Update the selector to target splash-container
+        // First fade out the splash container
         splash_window
             .eval("document.querySelector('.splash-container').classList.add('fade-out')")
             .unwrap();
         
-        // Increased wait time for the zen tree animation
-        sleep(Duration::from_millis(1500)).await;
+        // Wait for fade out animation
+        sleep(Duration::from_millis(800)).await;
         
-        // Close splash and show main window
+        // Show the tree
+        splash_window
+            .eval("document.querySelector('.tree-reveal').classList.add('show')")
+            .unwrap();
+        
+        // Wait for tree animation
+        sleep(Duration::from_millis(700)).await;
+        
         splash_window.close().unwrap();
         main_window.show().unwrap();
     }
