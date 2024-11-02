@@ -89,9 +89,9 @@ async fn set_complete(
         let splash_window = app.get_webview_window("splashscreen").unwrap();
         let main_window = app.get_webview_window("main").unwrap();
         
-        // Add fade-out class to the container
+        // Update the selector to target splash-container
         splash_window
-            .eval("document.querySelector('.container').classList.add('fade-out')")
+            .eval("document.querySelector('.splash-container').classList.add('fade-out')")
             .unwrap();
         
         // Wait for the animation to complete

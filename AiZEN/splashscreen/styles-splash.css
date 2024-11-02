@@ -172,3 +172,18 @@ body {
     50% { transform: translateY(-10px); }
     100% { transform: translateY(0px); }
 }
+
+.fade-out {
+    animation: fadeOut 0.8s ease-out forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
