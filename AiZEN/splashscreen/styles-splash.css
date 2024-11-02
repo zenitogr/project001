@@ -184,16 +184,36 @@ body {
 }
 
 .fade-out {
-    animation: contentFade 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: contentZoomOut 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    perspective: 1000px;
 }
 
+@keyframes contentZoomOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    40% {
+        opacity: 0.7;
+        transform: scale(2);
+        filter: brightness(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(3);
+        filter: brightness(1.5);
+    }
+}
+
+/* Zen tree effect */
 .fade-out::after {
     content: '';
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: radial-gradient(
         circle at center,
         var(--primary-color) 0%,
@@ -203,133 +223,97 @@ body {
     mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0);
     opacity: 0;
     pointer-events: none;
     z-index: 1000;
+    animation: treeZoomIn 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-.fade-out::after {
-    animation: zenTreeZoom 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes contentFade {
+@keyframes treeZoomIn {
     0% {
-        opacity: 1;
-        transform: scale(1) translateZ(0);
-        filter: brightness(1);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+        mask-size: 0%;
     }
     40% {
-        opacity: 0.7;
-        transform: scale(0.9) translateZ(0);
-        filter: brightness(1.2);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.7) translateZ(0);
-        filter: brightness(1.5);
-    }
-}
-
-@keyframes zenTreeZoom {
-    0% {
-        opacity: 0;
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(0.2);
         mask-size: 20%;
-        transform: translate(-50%, -50%) scale(0.1) translateZ(0);
     }
-    40% {
+    70% {
         opacity: 1;
-        mask-size: 40%;
-        transform: translate(-50%, -50%) scale(1) translateZ(0);
-    }
-    80% {
-        opacity: 1;
-        mask-size: 80%;
-        transform: translate(-50%, -50%) scale(2) translateZ(0);
+        transform: translate(-50%, -50%) scale(0.6);
+        mask-size: 60%;
     }
     100% {
         opacity: 0;
-        mask-size: 120%;
-        transform: translate(-50%, -50%) scale(4) translateZ(0);
+        transform: translate(-50%, -50%) scale(1);
+        mask-size: 100%;
     }
 }
 
-/* Add zen tree overlay for fade-out */
+/* Energy particles */
 .fade-out::before {
     content: '';
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
-    width: 100%;
-    height: 100%;
-    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
     background: 
         radial-gradient(circle at 30% 40%, var(--secondary-color) 0%, transparent 2%),
         radial-gradient(circle at 70% 60%, var(--primary-color) 0%, transparent 2%),
         radial-gradient(circle at 40% 70%, var(--secondary-color) 0%, transparent 2%),
         radial-gradient(circle at 60% 30%, var(--primary-color) 0%, transparent 2%);
-    animation: particleZoom 1.5s ease-out forwards;
+    transform: translate(-50%, -50%);
+    opacity: 0;
     pointer-events: none;
     z-index: 999;
+    animation: particlesEffect 1.5s ease-out forwards;
 }
 
-@keyframes particleZoom {
+@keyframes particlesEffect {
     0% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(1) translateZ(0);
+        transform: translate(-50%, -50%) scale(1);
     }
-    50% {
+    30% {
         opacity: 0.8;
-        transform: translate(-50%, -50%) scale(2) translateZ(0);
+        transform: translate(-50%, -50%) scale(1.5);
     }
     100% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(4) translateZ(0);
+        transform: translate(-50%, -50%) scale(2);
     }
 }
 
-/* Add glitch effect overlay */
+/* Add vignette effect to enhance depth */
 .fade-out::before {
     content: '';
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        45deg,
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at center,
         transparent 0%,
-        rgba(138, 43, 226, 0.1) 45%,
-        rgba(0, 191, 255, 0.1) 55%,
-        transparent 100%
+        rgba(10, 10, 10, 0) 50%,
+        rgba(10, 10, 10, 0.8) 100%
     );
-    animation: glitchEffect 0.8s ease-out forwards;
-    pointer-events: none;
+    z-index: 998;
+    animation: vignetteIntensify 1.5s ease-out forwards;
 }
 
-@keyframes glitchEffect {
+@keyframes vignetteIntensify {
     0% {
         opacity: 0;
-        transform: translateX(0) scaleY(1);
-    }
-    20% {
-        opacity: 0.8;
-        transform: translateX(5px) scaleY(1.02);
     }
     40% {
-        opacity: 0.4;
-        transform: translateX(-5px) scaleY(0.98);
-    }
-    60% {
-        opacity: 0.6;
-        transform: translateX(3px) scaleY(1.01);
-    }
-    80% {
-        opacity: 0.2;
-        transform: translateX(-3px) scaleY(0.99);
+        opacity: 0.5;
     }
     100% {
-        opacity: 0;
-        transform: translateX(0) scaleY(1);
+        opacity: 1;
     }
 }
