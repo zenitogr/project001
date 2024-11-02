@@ -1,33 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/splashscreen/styles-splash.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AiZEN Loading...</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles-splash.css">
+    <title>AiZEN</title>
 </head>
 <body>
-    <div class="container">
+    <div class="splash-container">
         <div class="logo">
-            <span class="text-gradient">Ai</span>ZEN
+            <span class="ai">Ai</span><span class="zen">ZEN</span>
         </div>
-        <div class="spinner">
-            <div class="spinner-inner"></div>
-            <div class="spinner-rays"></div>
-            <div class="fluid-effect"></div>
-            <div class="neon-glow"></div>
-        </div>
-        <div class="loading-text">
-            Initializing<span class="dots"></span>
-        </div>
-        <button id="kill-button" class="kill-button">Kill AiZEN</button>
+        <div class="spinner"></div>
+        <div class="status">Initializing...</div>
     </div>
-    <script type="module">
-        import { invoke } from '@tauri-apps/api/core';
-        
-        document.getElementById('kill-button').addEventListener('click', () => {
-            invoke('kill_app');
-        });
-    </script>
 </body>
 </html>
