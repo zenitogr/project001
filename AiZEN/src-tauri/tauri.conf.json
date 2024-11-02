@@ -1,0 +1,49 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "aizen",
+  "version": "0.1.0",
+  "identifier": "com.aizen.app",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "aizen",
+        "label": "main",
+        "width": 800,
+        "height": 600,
+        "visible": false
+      },
+      {
+        "label": "splashscreen",
+        "url": "/splashscreen/splashscreen.html",
+        "decorations": false,
+        "alwaysOnTop": true,
+        "center": true,
+        "title": "aizen",
+        "visible": true,
+        "height": 600,
+        "width": 800
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}
