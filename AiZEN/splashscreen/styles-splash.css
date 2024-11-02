@@ -177,4 +177,35 @@ body {
     background: var(--primary);
     color: var(--background);
     box-shadow: 0 0 15px var(--primary);
+}
+
+/* Add these new animations at the end of the file */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes glowPulse {
+    0% {
+        filter: brightness(1) blur(0);
+    }
+    50% {
+        filter: brightness(1.5) blur(4px);
+    }
+    100% {
+        filter: brightness(1) blur(0);
+    }
+}
+
+/* Add this new class that will be applied when fading out */
+.fade-out {
+    animation: fadeOut 0.8s ease-out forwards,
+               glowPulse 0.8s ease-in-out;
+    pointer-events: none;
 } 

@@ -71,19 +71,33 @@ async fn set_complete(
     state: State<'_, Mutex<SetupState>>,
     task: String,
 ) -> Result<(), ()> {
-    // Lock the state without write access
-    let mut state_lock = state.lock().unwrap();
-    match task.as_str() {
-        "frontend" => state_lock.frontend_task = true,
-        "backend" => state_lock.backend_task = true,
-        _ => panic!("invalid task completed!"),
-    }
-    // Check if both tasks are completed
-    if state_lock.backend_task && state_lock.frontend_task {
-        // Setup is complete, we can close the splashscreen
-        // and unhide the main window!
+    // Create a boolean to store if we need to trigger the transition
+    let should_transition = {
+        // Scope the lock to drop it before the await
+        let mut state_lock = state.lock().unwrap();
+        match task.as_str() {
+            "frontend" => state_lock.frontend_task = true,
+            "backend" => state_lock.backend_task = true,
+            _ => panic!("invalid task completed!"),
+        }
+        // Store the result before dropping the lock
+        state_lock.backend_task && state_lock.frontend_task
+    }; // Lock is dropped here
+
+    // Only proceed with transition if both tasks are complete
+    if should_transition {
         let splash_window = app.get_webview_window("splashscreen").unwrap();
         let main_window = app.get_webview_window("main").unwrap();
+        
+        // Add fade-out class to the container
+        splash_window
+            .eval("document.querySelector('.container').classList.add('fade-out')")
+            .unwrap();
+        
+        // Wait for the animation to complete
+        sleep(Duration::from_millis(800)).await;
+        
+        // Close splash and show main window
         splash_window.close().unwrap();
         main_window.show().unwrap();
     }
