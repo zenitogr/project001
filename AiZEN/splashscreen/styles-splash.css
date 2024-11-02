@@ -184,7 +184,7 @@ body {
 }
 
 .fade-out {
-    animation: zoomInFadeOut 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: zoomInFadeOut 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     transform-origin: center;
 }
 
@@ -224,15 +224,20 @@ body {
     position: absolute;
     width: 60vmin;
     height: 60vmin;
-    background: var(--text-color);
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 10 L50 90 M50 40 L30 60 M50 40 L70 60 M50 60 L30 80 M50 60 L70 80 M50 20 L20 40 M50 20 L80 40' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    mask-image: url('./zen tree.svg');
+    -webkit-mask-image: url('./zen tree.svg');
     mask-size: contain;
+    -webkit-mask-size: contain;
     mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
     mask-position: center;
+    -webkit-mask-position: center;
     transform: scale(0);
     box-shadow: 
         0 0 50px var(--primary-color),
         0 0 100px var(--secondary-color);
+    filter: drop-shadow(0 0 10px var(--secondary-color));
 }
 
 .tree-reveal.show::before {
@@ -250,9 +255,17 @@ body {
 
 @keyframes treeGrow {
     0% {
-        transform: scale(0);
+        transform: scale(0) translateY(20px);
+        opacity: 0;
+        filter: brightness(0.8) drop-shadow(0 0 5px var(--secondary-color));
+    }
+    50% {
+        opacity: 0.7;
+        filter: brightness(1.2) drop-shadow(0 0 15px var(--secondary-color));
     }
     100% {
-        transform: scale(1);
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        filter: brightness(1.5) drop-shadow(0 0 20px var(--secondary-color));
     }
 }

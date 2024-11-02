@@ -95,7 +95,7 @@ async fn set_complete(
             .unwrap();
         
         // Wait for fade out animation
-        sleep(Duration::from_millis(800)).await;
+        sleep(Duration::from_millis(1000)).await;
         
         // Show the tree
         splash_window
@@ -103,7 +103,7 @@ async fn set_complete(
             .unwrap();
         
         // Wait for tree animation
-        sleep(Duration::from_millis(700)).await;
+        sleep(Duration::from_millis(1200)).await;
         
         splash_window.close().unwrap();
         main_window.show().unwrap();
